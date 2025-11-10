@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/sveltekit'
 import { withThemeByClassName, withThemeByDataAttribute } from '@storybook/addon-themes';
-import '../src/tailwind.css';
+import "../src/app.css";
 
 export const decorators = [
   withThemeByClassName({
