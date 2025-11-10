@@ -165,6 +165,12 @@ npm i -D @types/d3
 We use npm pack to build out package. It will generate the.
 
 ``` sh
+npm version patch
+npm version minor
+npm version major
+
+git push && git push --tags
+
 npm pack
 ```
 
