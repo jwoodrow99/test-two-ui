@@ -1,10 +1,14 @@
 # Test Two UI
 
-This is a component library base on shadcn ui.
+This is the PrismLabs UI component library base on shadcn ui for svelte.
 
 ## Usage
 
-Create a SvelteKit project following the prompts.
+This library was built with SvelteKit and has been tested in a SvelteKit project. We provide instructions from creating a compatible SvelteKit project and configuring it as an SPA, which is primarily how we develop our client interfaces for our web applications.
+
+### Create project
+
+We will be using the ```sv``` tool to create a basic Svelte Kit project with the following configuration options.
 
 ``` sh
 npx sv create <project_name>
@@ -37,7 +41,9 @@ npx sv create <project_name>
 └  You're all set!
 ```
 
-Configure SvelteKit as SPA.
+### Configure as SPA
+
+By default SvelteKit will assume you want the project to use SSR, You will need to create a ```+layout.ts``` file and add the following options to prevent SSR on all pages. All pages will inherit this layout.
 
 ``` js
 // src/routes/+layout.ts
@@ -46,27 +52,32 @@ export const ssr = false;
 export const csr = true;
 ```
 
-Add mode switcher to layout
+### Create general layout
+
+This adds all the necessary functionality to the application. That includes theme switching and the toast system.
 
 ``` svelte
 <!-- src/routes/+layout.svelte -->
-
 <script lang="ts">
   import "../app.css";
+  import { Toaster } from "test-two-ui/ui/sonner";
   import { ModeWatcher } from "mode-watcher";
   let { children } = $props();
 </script>
 
+<Toaster />
 <ModeWatcher />
 {@render children?.()}
 ```
 
-Create basic page layout using our library
+### Create basic homepage
+
+This basic homepage imports our default layout and gives an example of the toast system.
 
 ``` svelte
 <!-- src/routes/+page.svelte -->
-
 <script lang="ts">
+  import { toast } from "svelte-sonner";
   import { Layout, Insert } from "test-two-ui/layout/general";
   import { Button } from "test-two-ui/ui/button";
   let sidebarOpen = $state<boolean>(true);
@@ -81,14 +92,16 @@ Create basic page layout using our library
   <Insert>
     <Button
       onclick={() => {
-        console.log("Hello World!");
-      }}>Say!</Button
+        toast("Hello world");
+      }}>Show toast</Button
     >
   </Insert>
 </Layout>
 ```
 
-Add tailwind configuration to your file to allow theme for components.
+### Configure tailwind
+
+This configures all the CSS needed for tailwind and shadcn to work, as well as imports the default tailwind color scheme from the library and applies it.
 
 ``` css
 /* src/app.css */
@@ -155,6 +168,8 @@ Add tailwind configuration to your file to allow theme for components.
 }
 ```
 
+### Nice to have
+
 ``` sh
 # Install charting types
 npm i -D @types/d3
@@ -162,7 +177,11 @@ npm i -D @types/d3
 
 ## Building
 
-We use npm pack to build out package. It will generate the.
+This project was created as a SvelteKit library that gets built using ```npm pack```.
+
+To publish the package you simply need to update the version with npm. THis will create a new commit and tag matching the version in your ```package.json```. We have a GitHub action that will run the build when it sees a new version tag. Then it will add the build to the GitHub repo Releases.
+
+Currently we do not publish this library to npm as this is an internal library. This git flow allows us to easy maintain the library while keeping it private.
 
 ``` sh
 npm version patch
@@ -170,11 +189,17 @@ npm version minor
 npm version major
 
 git push && git push --tags
-
-npm pack
 ```
 
-## Original Generate README
+## Development
+
+We have created a local storybook to preview our custom components and layouts. We only display our custom components and themes, all the default shadcn components can be viewed in their documentation.
+
+``` sh
+npm run storybook
+```
+
+## Original SvelteKit README
 
 Everything you need to build a Svelte library, powered by [`sv`](https://npmjs.com/package/sv).
 
