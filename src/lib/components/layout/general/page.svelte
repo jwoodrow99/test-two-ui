@@ -1,4 +1,6 @@
 <script lang="ts">
+  import type { Component } from "svelte";
+
   // Ui
   import { SidebarTrigger } from "$lib/components/ui/sidebar/index.js";
   import { Separator } from "$lib/components/ui/separator/index.js";
@@ -9,8 +11,8 @@
     name,
     sidebarOpen = $bindable<boolean>(),
   } = $props<{
-    children?: any;
-    pageActions?: any;
+    children?: Component<any>;
+    pageActions?: Component<any>;
     name: string;
     sidebarOpen: boolean;
   }>();

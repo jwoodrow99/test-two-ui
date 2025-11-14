@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, onDestroy } from "svelte";
+  import type { Component } from "svelte";
 
   // Ui
   import * as Sidebar from "$lib/components/ui/sidebar/index.js";
@@ -16,8 +16,8 @@
     sidebarOpen = $bindable<boolean>(true),
   } = $props<{
     children?: any;
-    appSidebar?: typeof Sidebar.Group;
-    pageSidebar?: typeof Sidebar.Group;
+    appSidebar?: Component<typeof Sidebar.Group>;
+    pageSidebar?: Component<typeof Sidebar.Group>;
     pageActions?: any;
     name: string;
     sidebarOpen: boolean;
