@@ -1,4 +1,6 @@
 <script lang="ts">
+  import type { Component, Snippet } from "svelte";
+
   // Ui
   import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 
@@ -14,8 +16,8 @@
     sidebarOpen = $bindable<boolean>(true),
   } = $props<{
     children?: any;
-    appSidebar?: typeof Sidebar.Group;
-    pageSidebar?: typeof Sidebar.Group;
+    appSidebar?: Snippet;
+    pageSidebar?: Snippet;
     pageActions?: any;
     name: string;
     sidebarOpen: boolean;

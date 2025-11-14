@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { Component } from "svelte";
+  import type { Component, Snippet } from "svelte";
 
   let { children } = $props<{
-    children?: Component<any>;
+    children?: Snippet;
   }>();
 </script>
 
